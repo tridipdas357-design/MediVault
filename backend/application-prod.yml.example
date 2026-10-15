@@ -1,0 +1,38 @@
+# Production profile example for MediVault backend.
+# Do not commit real secrets. Set these as environment variables on Render
+# (or copy values into a local application-prod.yml that stays untracked).
+
+server:
+  port: ${PORT:8080}
+
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+
+app:
+  cors:
+    allowed-origins: ${CORS_ORIGINS}
+  upload-dir: ${UPLOAD_DIR:/app/uploads}
+
+# Required environment variables
+# -------------------------------
+# PORT              - HTTP port (Render sets this automatically)
+# DB_URL            - JDBC URL, e.g. jdbc:mysql://host:3306/medivault?useSSL=true&serverTimezone=UTC
+# DB_USERNAME       - MySQL user
+# DB_PASSWORD       - MySQL password
+# JWT_SECRET        - HMAC secret, at least 32 characters
+# CORS_ORIGINS      - Frontend origin(s), comma-separated, e.g. https://medivault.vercel.app
+#
+# Optional
+# JWT_EXPIRATION_MS - Access token lifetime in milliseconds (default 86400000 = 24h)
+# UPLOAD_DIR        - Directory for scanned documents (default /app/uploads in Docker)
+# JAVA_OPTS         - Extra JVM flags for the container
