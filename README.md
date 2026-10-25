@@ -109,9 +109,9 @@ The patient sets or changes a separate doctor access password from the **Doctor 
 
 ## Deploy
 
-### MySQL (Railway or PlanetScale)
+### MySQL (Railway or another managed provider)
 
-Create a MySQL instance and copy host, database, user, and password. JDBC URL shape:
+Create a MySQL instance and copy its connection details. If the database is hosted outside Render, enable public TCP access for the database and use the provider's public host and port. Keep its credentials private. JDBC URL shape:
 
 ```
 jdbc:mysql://HOST:PORT/DATABASE?useSSL=true&serverTimezone=UTC
@@ -119,19 +119,12 @@ jdbc:mysql://HOST:PORT/DATABASE?useSSL=true&serverTimezone=UTC
 
 ### Backend on Render (Docker)
 
-1. Push this repo to GitHub.
-2. New **Web Service** → Docker → root directory `backend` (Dockerfile is `backend/Dockerfile`).
-3. Set environment variables from `backend/application-prod.yml.example`:
-   - `DB_URL`
-   - `DB_USERNAME`
-   - `DB_PASSWORD`
-   - `JWT_SECRET` (32+ characters)
-   - `CORS_ORIGINS` = your Vercel origin, e.g. `https://your-app.vercel.app`
-   - `UPLOAD_DIR=/app/uploads` (optional)
-4. Render injects `PORT`; `application.yml` already reads it.
-5. Health check path: `/api/health`.
+1. In Render, create a **Blueprint** from this GitHub repository. Render reads `render.yaml` and configures the Docker service from the `backend` directory.
+2. Enter the prompted `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`, and a strong `JWT_SECRET` (at least 32 characters) as private environment values. Do not commit these values.
+3. Confirm `CORS_ORIGINS` matches the deployed Vercel frontend URL. The included Blueprint starts with `https://frontend-bice-nine-72.vercel.app`.
+4. Render injects `PORT`; `application.yml` already reads it. The health check path is `/api/health`.
 
-Note: the container filesystem is ephemeral. For durable scans, attach a disk or object storage later. `ddl-auto=update` creates tables on first boot.
+Note: the container filesystem is ephemeral. Uploaded medical scans will not be durable across redeploys unless you configure persistent storage or object storage. Do not store real patient data until you have reviewed the provider's privacy, security, and regulatory requirements and configured durable storage. `ddl-auto=update` creates tables on first boot.
 
 ### Frontend on Vercel
 
