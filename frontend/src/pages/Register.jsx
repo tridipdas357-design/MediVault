@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { ShieldPlus } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import ThemeToggle from '../components/ThemeToggle';
 
 export default function Register() {
   const { token, register } = useAuth();
@@ -35,15 +36,16 @@ export default function Register() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-950 px-4">
+    <div className="relative flex min-h-screen items-center justify-center bg-linen px-4">
+      <ThemeToggle className="absolute right-4 top-4 p-2" />
       <div className="card w-full max-w-md p-8">
         <div className="mb-6 flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-400/15 text-cyan-400">
+          <span className="icon-soft h-10 w-10">
             <ShieldPlus size={22} />
           </span>
           <div>
             <h1 className="text-xl font-semibold">Create your vault</h1>
-            <p className="text-sm text-slate-400">Keep records in one secure place</p>
+            <p className="muted text-sm">Keep records in one secure place</p>
           </div>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -87,16 +89,16 @@ export default function Register() {
               value={form.password}
               onChange={(e) => update('password', e.target.value)}
             />
-            <p className="mt-1 text-xs text-slate-500">At least 8 characters.</p>
+            <p className="mt-1 text-xs text-stone-400">At least 8 characters.</p>
           </div>
-          {localError ? <p className="text-sm text-red-300">{localError}</p> : null}
+          {localError ? <p className="text-sm text-critical">{localError}</p> : null}
           <button type="submit" className="btn-primary w-full" disabled={submitting}>
             {submitting ? 'Creating…' : 'Create account'}
           </button>
         </form>
-        <p className="mt-6 text-center text-sm text-slate-400">
+        <p className="muted mt-6 text-center text-sm">
           Already have an account?{' '}
-          <Link to="/login" className="text-cyan-400 hover:underline">
+          <Link to="/login" className="accent hover:underline">
             Sign in
           </Link>
         </p>

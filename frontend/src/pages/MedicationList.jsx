@@ -103,7 +103,7 @@ export default function MedicationList() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Medications</h1>
-          <p className="mt-1 text-slate-400">Track what you are taking and when it started.</p>
+          <p className="mt-1 muted">Track what you are taking and when it started.</p>
         </div>
         <button type="button" className="btn-primary" onClick={openCreate}>
           <Plus size={16} />
@@ -112,11 +112,11 @@ export default function MedicationList() {
       </div>
 
       {loading ? (
-        <p className="text-sm text-slate-400">Loading…</p>
+        <p className="text-sm muted">Loading…</p>
       ) : items.length === 0 ? (
         <div className="card flex flex-col items-center gap-2 px-6 py-12 text-center">
-          <Pill className="text-slate-500" />
-          <p className="text-sm text-slate-400">No medications saved yet.</p>
+          <Pill className="text-stone-400" />
+          <p className="text-sm muted">No medications saved yet.</p>
         </div>
       ) : (
         <div className="grid gap-3 md:grid-cols-2">
@@ -125,10 +125,10 @@ export default function MedicationList() {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <h2 className="font-medium">{item.name}</h2>
-                  <p className="text-sm text-slate-400">
+                  <p className="text-sm muted">
                     {[item.dosage, item.frequency].filter(Boolean).join(' · ') || 'No dosage listed'}
                   </p>
-                  <p className="mt-1 text-xs text-slate-500">
+                  <p className="mt-1 text-xs text-stone-400">
                     Started {formatDate(item.startDate)} · {item.active ? 'Active' : 'Inactive'}
                   </p>
                 </div>
@@ -204,7 +204,7 @@ export default function MedicationList() {
                 onChange={(e) => setForm((prev) => ({ ...prev, startDate: e.target.value }))}
               />
             </div>
-            <label className="flex items-center gap-2 text-sm text-slate-300">
+            <label className="flex items-center gap-2 text-sm text-stone-600">
               <input
                 type="checkbox"
                 checked={form.active}
@@ -226,7 +226,7 @@ export default function MedicationList() {
 
       {pendingDelete ? (
         <Modal title="Delete medication" onClose={() => setPendingDelete(null)}>
-          <p className="text-sm text-slate-400">
+          <p className="text-sm muted">
             Delete “{pendingDelete.name}”? This cannot be undone.
           </p>
           <div className="mt-5 flex justify-end gap-2">

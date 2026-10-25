@@ -6,6 +6,15 @@ echo ========================================================
 echo Starting MediVault Backend...
 echo ========================================================
 
+REM Avoid opening the file-based H2 database from a second backend process.
+powershell -NoProfile -Command "if (Get-NetTCPConnection -State Listen -LocalPort 8080 -ErrorAction SilentlyContinue) { exit 0 }; exit 1" >nul 2>nul
+if %ERRORLEVEL% EQU 0 (
+    echo [INFO] Something is already listening on port 8080.
+    echo Stop the existing backend before starting another instance.
+    pause
+    exit /b 0
+)
+
 REM Check if portable tools exist in parent .tools directory
 if exist "%~dp0..\.tools\jdk-17\bin\java.exe" (
     set "JAVA_HOME=%~dp0..\.tools\jdk-17"
@@ -30,11 +39,8 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
-REM Default: Embedded database (works out of the box with zero DB configuration)
-set "DB_URL=jdbc:h2:file:./data/medivault;DB_CLOSE_DELAY=-1;MODE=MySQL"
-set "DB_DRIVER=org.h2.Driver"
-set "DB_USERNAME=sa"
-set "DB_PASSWORD="
+REM Use the local profile so datasource settings stay in application-local.yml
+set "SPRING_PROFILES_ACTIVE=local"
 set "JWT_SECRET=medivault-super-secret-key-32chars-minimum"
 set "CORS_ORIGINS=http://localhost:5173"
 

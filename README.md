@@ -9,6 +9,15 @@ Personal medical records manager: prescriptions, lab reports, vaccinations, cons
 
 ## Local setup
 
+To run locally without installing MySQL, use the embedded H2 database:
+
+```bat
+start-all.bat
+```
+
+Or start only the backend with `backend\run.bat`. Both launchers use the `local` Spring profile and store data in `backend/data/medivault`.
+Only start one backend instance at a time: the local H2 database is file-based and cannot be opened by multiple backend processes simultaneously. If the backend is already running, use it at `http://localhost:8080`; stop it with Ctrl+C before restarting.
+
 ### 1. MySQL
 
 Create a database (or let the JDBC URL create it):
@@ -86,6 +95,17 @@ Set header `Authorization: Bearer <token>` after login. Errors are JSON:
 ```
 
 Typical statuses: `400` validation, `401` auth, `404` missing, `409` duplicate email, `500` unexpected (no stack traces in the body).
+
+### Doctor QR access
+
+The patient sets or changes a separate doctor access password from the **Doctor QR** page. The password is stored as a BCrypt hash. Scanning the QR opens a password prompt, and the read-only summary is returned only after the password is verified. Share the password separately from the QR code.
+
+| Method | Path | Auth | Notes |
+|--------|------|------|-------|
+| GET | `/api/profile/share` | Yes | Get QR link and whether its password is set |
+| POST | `/api/profile/share/password` | Yes | `{ password }` Set or change the doctor access password (8–72 characters) |
+| POST | `/api/profile/share/refresh` | Yes | Rotate the QR link |
+| POST | `/api/share/{token}/access` | No | `{ password }` → read-only patient summary |
 
 ## Deploy
 

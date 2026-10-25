@@ -63,7 +63,7 @@ export default function Dashboard() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
-        <p className="mt-1 text-slate-400">
+        <p className="mt-1 muted">
           {user?.name ? `Welcome back, ${user.name}.` : 'Your health snapshot.'}
         </p>
       </div>
@@ -72,8 +72,8 @@ export default function Dashboard() {
         {stats.map(({ label, value, icon: Icon, to }) => (
           <Link key={label} to={to} className="card card-hover p-5">
             <div className="flex items-center justify-between">
-              <p className="text-sm text-slate-400">{label}</p>
-              <Icon size={18} className="text-cyan-400" />
+              <p className="text-sm muted">{label}</p>
+              <Icon size={18} className="text-sage-600" />
             </div>
             <p className="mt-3 text-3xl font-semibold">{loading ? '—' : value}</p>
           </Link>
@@ -83,16 +83,16 @@ export default function Dashboard() {
       <section>
         <div className="mb-3 flex items-center justify-between">
           <h2 className="text-lg font-semibold">Recent records</h2>
-          <Link to="/records" className="text-sm text-cyan-400 hover:underline">
+          <Link to="/records" className="accent text-sm hover:underline">
             View all
           </Link>
         </div>
         {loading ? (
-          <p className="text-sm text-slate-400">Loading…</p>
+          <p className="text-sm muted">Loading…</p>
         ) : recent.length === 0 ? (
           <div className="card flex flex-col items-center gap-2 px-6 py-12 text-center">
-            <FolderOpen className="text-slate-500" />
-            <p className="text-sm text-slate-400">No records yet — add your first prescription or lab report.</p>
+            <FolderOpen className="text-stone-400" />
+            <p className="text-sm muted">No records yet — add your first prescription or lab report.</p>
           </div>
         ) : (
           <div className="space-y-3">
@@ -101,12 +101,12 @@ export default function Dashboard() {
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="font-medium">{record.title}</p>
-                    <p className="text-sm text-slate-400">
+                    <p className="text-sm muted">
                       {typeLabel(record.type)}
                       {record.doctor ? ` · ${record.doctor}` : ''}
                     </p>
                   </div>
-                  <p className="text-sm text-slate-500">{formatDate(record.date)}</p>
+                  <p className="text-sm text-stone-500">{formatDate(record.date)}</p>
                 </div>
               </div>
             ))}

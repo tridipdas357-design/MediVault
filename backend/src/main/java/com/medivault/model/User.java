@@ -35,6 +35,12 @@ public class User {
 
     private String emergencyContact;
 
+    @Column(unique = true, length = 64)
+    private String shareToken;
+
+    @JsonIgnore
+    private String sharePasswordHash;
+
     public Long getId() {
         return id;
     }
@@ -97,5 +103,21 @@ public class User {
 
     public void setEmergencyContact(String emergencyContact) {
         this.emergencyContact = emergencyContact;
+    }
+
+    public String getShareToken() {
+        return shareToken;
+    }
+
+    public void setShareToken(String shareToken) {
+        this.shareToken = shareToken;
+    }
+
+    public String getSharePasswordHash() {
+        return sharePasswordHash;
+    }
+
+    public void setSharePasswordHash(String sharePasswordHash) {
+        this.sharePasswordHash = sharePasswordHash;
     }
 }

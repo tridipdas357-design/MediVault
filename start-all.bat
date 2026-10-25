@@ -1,0 +1,3 @@
+@echo off
+start "Backend" powershell -NoExit -Command "cd '%~dp0backend'; if (Get-NetTCPConnection -State Listen -LocalPort 8080 -ErrorAction SilentlyContinue) { Write-Host 'Backend is already running on port 8080; skipping duplicate startup.' } else { $env:Path += ';C:\Users\TRIDIP DAS\Documents\maven-mvnd-1.0.6-windows-amd64\maven-mvnd-1.0.6-windows-amd64\mvn\bin'; $env:SPRING_PROFILES_ACTIVE='local'; $env:JWT_SECRET='medivault-super-secret-key-32chars-minimum'; $env:CORS_ORIGINS='http://localhost:5173'; mvn spring-boot:run }"
+start "Frontend" powershell -NoExit -Command "cd '%~dp0frontend'; npm run dev"

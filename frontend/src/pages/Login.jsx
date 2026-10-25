@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { ShieldPlus } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import ThemeToggle from '../components/ThemeToggle';
 
 export default function Login() {
   const { token, login } = useAuth();
@@ -28,15 +29,16 @@ export default function Login() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-950 px-4">
+    <div className="relative flex min-h-screen items-center justify-center bg-linen px-4">
+      <ThemeToggle className="absolute right-4 top-4 p-2" />
       <div className="card w-full max-w-md p-8">
         <div className="mb-6 flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-400/15 text-cyan-400">
+          <span className="icon-soft h-10 w-10">
             <ShieldPlus size={22} />
           </span>
           <div>
             <h1 className="text-xl font-semibold">Welcome back</h1>
-            <p className="text-sm text-slate-400">Sign in to MediVault</p>
+            <p className="muted text-sm">Sign in to MediVault</p>
           </div>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -68,14 +70,14 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          {localError ? <p className="text-sm text-red-300">{localError}</p> : null}
+          {localError ? <p className="text-sm text-critical">{localError}</p> : null}
           <button type="submit" className="btn-primary w-full" disabled={submitting}>
             {submitting ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
-        <p className="mt-6 text-center text-sm text-slate-400">
+        <p className="muted mt-6 text-center text-sm">
           New here?{' '}
-          <Link to="/register" className="text-cyan-400 hover:underline">
+          <Link to="/register" className="accent hover:underline">
             Create an account
           </Link>
         </p>

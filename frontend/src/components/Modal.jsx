@@ -19,16 +19,16 @@ export default function Modal({ title, children, onClose }) {
       <button
         type="button"
         aria-label="Close dialog"
-        className="absolute inset-0 bg-slate-950/70"
+        className="absolute inset-0 bg-stone-800/30"
         onClick={onClose}
       />
       <div className="card relative z-10 w-full max-w-lg p-6 shadow-lift">
         <div className="mb-4 flex items-start justify-between gap-3">
-          <h2 className="text-lg font-semibold text-slate-100">{title}</h2>
+          <h2 className="text-lg font-semibold text-stone-800">{title}</h2>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg p-1 text-slate-400 hover:bg-slate-800 hover:text-slate-100"
+            className="rounded-lg p-1 text-stone-400 hover:bg-stone-100 hover:text-stone-700"
             aria-label="Close"
           >
             <X size={18} />

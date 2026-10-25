@@ -99,7 +99,7 @@ export default function RecordList() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Records</h1>
-          <p className="mt-1 text-slate-400">Prescriptions, labs, vaccines, and notes.</p>
+          <p className="mt-1 muted">Prescriptions, labs, vaccines, and notes.</p>
         </div>
         <button
           type="button"
@@ -116,7 +116,7 @@ export default function RecordList() {
 
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
-          <Search size={16} className="pointer-events-none absolute left-3 top-3 text-slate-500" />
+          <Search size={16} className="pointer-events-none absolute left-3 top-3 text-stone-400" />
           <input
             className="input pl-9"
             placeholder="Search by title"
@@ -135,11 +135,11 @@ export default function RecordList() {
       </div>
 
       {loading ? (
-        <p className="text-sm text-slate-400">Loading…</p>
+        <p className="text-sm muted">Loading…</p>
       ) : filtered.length === 0 ? (
         <div className="card flex flex-col items-center gap-2 px-6 py-12 text-center">
-          <FileText className="text-slate-500" />
-          <p className="text-sm text-slate-400">No records match this view.</p>
+          <FileText className="text-stone-400" />
+          <p className="text-sm muted">No records match this view.</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -148,17 +148,17 @@ export default function RecordList() {
               <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <h2 className="font-medium">{record.title}</h2>
-                  <p className="text-sm text-slate-400">
+                  <p className="text-sm muted">
                     {typeLabel(record.type)} · {formatDate(record.date)}
                     {record.doctor ? ` · ${record.doctor}` : ''}
                   </p>
                   {record.notes ? (
-                    <p className="mt-2 text-sm text-slate-500">{record.notes}</p>
+                    <p className="mt-2 text-sm text-stone-400">{record.notes}</p>
                   ) : null}
                   {record.fileUrl ? (
                     <button
                       type="button"
-                      className="mt-2 text-sm text-cyan-400 hover:underline"
+                      className="accent mt-2 text-sm hover:underline"
                       onClick={() => openFile(record)}
                     >
                       Open attachment
@@ -214,7 +214,7 @@ export default function RecordList() {
 
       {pendingDelete ? (
         <Modal title="Delete record" onClose={() => setPendingDelete(null)}>
-          <p className="text-sm text-slate-400">
+          <p className="text-sm muted">
             Delete “{pendingDelete.title}”? This cannot be undone.
           </p>
           <div className="mt-5 flex justify-end gap-2">

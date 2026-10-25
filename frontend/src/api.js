@@ -35,11 +35,11 @@ api.interceptors.response.use(
     const url = error.config?.url || '';
     console.error('[MediVault API]', error.response?.status || 'network', url, error.message);
     const message = cleanMessage(error);
-    const isAuthCall = url.includes('/api/auth/');
-    if (!isAuthCall) {
+    const isPublicCall = url.includes('/api/auth/') || url.includes('/api/share/');
+    if (!isPublicCall) {
       window.dispatchEvent(new CustomEvent('medivault:error', { detail: message }));
     }
-    if (error.response?.status === 401 && !isAuthCall) {
+    if (error.response?.status === 401 && !isPublicCall) {
       localStorage.removeItem('token');
       if (window.location.pathname !== '/login') {
         window.location.assign('/login');

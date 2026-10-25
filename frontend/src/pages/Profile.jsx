@@ -45,7 +45,7 @@ export default function Profile() {
     <div className="mx-auto max-w-2xl space-y-6">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Profile</h1>
-        <p className="mt-1 text-slate-400">Emergency details stay with your account.</p>
+        <p className="muted mt-1">Emergency details stay with your account.</p>
       </div>
       <form onSubmit={handleSubmit} className="card space-y-4 p-6">
         <div>
@@ -125,7 +125,7 @@ export default function Profile() {
             Sign out
           </button>
           <div className="flex items-center gap-3">
-            {saved ? <span className="text-sm text-cyan-400">Saved</span> : null}
+            {saved ? <span className="accent text-sm">Saved</span> : null}
             <button type="submit" className="btn-primary" disabled={submitting}>
               {submitting ? 'Saving…' : 'Save profile'}
             </button>

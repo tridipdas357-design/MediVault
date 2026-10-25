@@ -9,12 +9,14 @@ import RecordList from './pages/RecordList';
 import MedicationList from './pages/MedicationList';
 import AppointmentList from './pages/AppointmentList';
 import Profile from './pages/Profile';
+import ShareQr from './pages/ShareQr';
+import DoctorShare from './pages/DoctorShare';
 
 function Protected({ children }) {
   const { token, loading } = useAuth();
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center text-slate-400">
+      <div className="flex min-h-screen items-center justify-center text-stone-500">
         Loading…
       </div>
     );
@@ -27,7 +29,7 @@ function Protected({ children }) {
 
 function Shell({ children }) {
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-linen">
       <Sidebar />
       <main className="px-4 py-6 pb-24 md:ml-64 md:px-8 md:pb-8">{children}</main>
     </div>
@@ -54,7 +56,7 @@ function ToastHost() {
   if (!message) return null;
 
   return (
-    <div className="fixed right-4 top-4 z-[60] max-w-sm rounded-xl border border-red-500/30 bg-slate-900 px-4 py-3 text-sm text-red-200 shadow-lift">
+    <div className="fixed right-4 top-4 z-[60] max-w-sm rounded-xl border border-critical/20 bg-critical-tint px-4 py-3 text-sm text-critical shadow-lift">
       {message}
     </div>
   );
@@ -67,6 +69,7 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/share/:token" element={<DoctorShare />} />
         <Route
           path="/"
           element={
@@ -103,6 +106,16 @@ export default function App() {
             <Protected>
               <Shell>
                 <AppointmentList />
+              </Shell>
+            </Protected>
+          }
+        />
+        <Route
+          path="/qr"
+          element={
+            <Protected>
+              <Shell>
+                <ShareQr />
               </Shell>
             </Protected>
           }

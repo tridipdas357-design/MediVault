@@ -107,7 +107,7 @@ export default function RecordForm({ initial, onSubmit, onCancel, submitting }) 
           id="record-file"
           type="file"
           accept=".pdf,.png,.jpg,.jpeg,.webp"
-          className="input file:mr-3 file:rounded-lg file:border-0 file:bg-slate-800 file:px-3 file:py-1 file:text-slate-200"
+          className="input file:mr-3 file:rounded-lg file:border-0 file:bg-sage-100 file:px-3 file:py-1 file:text-sage-800"
           onChange={(e) => setFile(e.target.files?.[0] || null)}
         />
       </div>

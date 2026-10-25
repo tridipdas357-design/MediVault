@@ -111,8 +111,8 @@ export default function AppointmentList() {
         <h2 className="text-lg font-semibold">{title}</h2>
         {list.length === 0 ? (
           <div className="card flex flex-col items-center gap-2 px-6 py-10 text-center">
-            <Calendar className="text-slate-500" />
-            <p className="text-sm text-slate-400">No {title.toLowerCase()} appointments.</p>
+            <Calendar className="text-stone-400" />
+            <p className="text-sm muted">No {title.toLowerCase()} appointments.</p>
           </div>
         ) : (
           list.map((item) => (
@@ -120,10 +120,10 @@ export default function AppointmentList() {
               <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <h3 className="font-medium">{item.doctor}</h3>
-                  <p className="text-sm text-slate-400">
+                  <p className="text-sm muted">
                     {item.specialty || 'General'} · {formatDate(item.date)} {formatTime(item.time)}
                   </p>
-                  {item.location ? <p className="mt-1 text-sm text-slate-500">{item.location}</p> : null}
+                  {item.location ? <p className="mt-1 text-sm text-stone-400">{item.location}</p> : null}
                 </div>
                 <div className="flex gap-2">
                   <button type="button" className="btn-ghost px-3" onClick={() => openEdit(item)} aria-label="Edit appointment">
@@ -151,7 +151,7 @@ export default function AppointmentList() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Appointments</h1>
-          <p className="mt-1 text-slate-400">Upcoming visits split from history automatically.</p>
+          <p className="mt-1 muted">Upcoming visits split from history automatically.</p>
         </div>
         <button type="button" className="btn-primary" onClick={openCreate}>
           <Plus size={16} />
@@ -160,7 +160,7 @@ export default function AppointmentList() {
       </div>
 
       {loading ? (
-        <p className="text-sm text-slate-400">Loading…</p>
+        <p className="text-sm muted">Loading…</p>
       ) : (
         <div className="space-y-8">
           {renderGroup('Upcoming', upcoming)}
@@ -247,7 +247,7 @@ export default function AppointmentList() {
 
       {pendingDelete ? (
         <Modal title="Delete appointment" onClose={() => setPendingDelete(null)}>
-          <p className="text-sm text-slate-400">
+          <p className="text-sm muted">
             Delete the visit with {pendingDelete.doctor}? This cannot be undone.
           </p>
           <div className="mt-5 flex justify-end gap-2">

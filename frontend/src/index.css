@@ -3,6 +3,72 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    color-scheme: light;
+    --color-page: #F8FAFB;
+    --color-surface: #FFFFFF;
+    --color-neutral-50: #F8FAFB;
+    --color-neutral-100: #E5EAEE;
+    --color-neutral-200: #E5EAEE;
+    --color-neutral-300: #D5DDE3;
+    --color-neutral-400: #5B6B7B;
+    --color-neutral-500: #5B6B7B;
+    --color-neutral-600: #5B6B7B;
+    --color-neutral-700: #0F1B2D;
+    --color-neutral-800: #0F1B2D;
+    --color-neutral-900: #0F1B2D;
+    --color-brand-50: #E6F6F3;
+    --color-brand-100: #E6F6F3;
+    --color-brand-200: #CDEDE7;
+    --color-brand-400: #35B4A4;
+    --color-brand-500: #0F9D8A;
+    --color-brand-600: #0F9D8A;
+    --color-brand-700: #0B7F70;
+    --color-brand-800: #0B7F70;
+    --color-normal: #1A9E5C;
+    --color-normal-tint: #E7F6EE;
+    --color-borderline: #B7791F;
+    --color-borderline-tint: #FDF3E1;
+    --color-critical: #C93B3B;
+    --color-critical-tint: #FCEBEB;
+    --color-info: #2B6CB0;
+    --color-info-tint: #E8F1FA;
+    --color-shadow: rgba(15, 157, 138, 0.22);
+  }
+
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+    --color-page: #0B1220;
+    --color-surface: #111C2D;
+    --color-neutral-50: #0F1928;
+    --color-neutral-100: #263345;
+    --color-neutral-200: #2D3A4C;
+    --color-neutral-300: #445368;
+    --color-neutral-400: #A8B6C6;
+    --color-neutral-500: #A8B6C6;
+    --color-neutral-600: #B8C4D1;
+    --color-neutral-700: #CED7E1;
+    --color-neutral-800: #E5EAF0;
+    --color-neutral-900: #F4F7FA;
+    --color-brand-50: #153831;
+    --color-brand-100: #153831;
+    --color-brand-200: #24564E;
+    --color-brand-400: #43C6B0;
+    --color-brand-500: #0F9D8A;
+    --color-brand-600: #0F9D8A;
+    --color-brand-700: #32B49F;
+    --color-brand-800: #32B49F;
+    --color-normal: #53CC88;
+    --color-normal-tint: #163827;
+    --color-borderline: #E1B458;
+    --color-borderline-tint: #382B18;
+    --color-critical: #F47E7E;
+    --color-critical-tint: #3B2027;
+    --color-info: #7AB6F5;
+    --color-info-tint: #1D3046;
+    --color-shadow: rgba(0, 0, 0, 0.4);
+  }
+
   html,
   body,
   #root {
@@ -11,37 +77,65 @@
 
   body {
     font-family: Inter, system-ui, sans-serif;
-    background-color: #020617;
-    color: #f1f5f9;
+    background-color: var(--color-page);
+    color: var(--color-neutral-800);
   }
 }
 
 @layer components {
   .card {
-    @apply rounded-xl border border-slate-800 bg-slate-900 transition duration-200;
+    @apply rounded-xl border border-stone-200 bg-surface transition duration-200;
   }
 
   .card-hover {
-    @apply hover:-translate-y-0.5 hover:shadow-lift hover:border-slate-700;
+    @apply hover:-translate-y-0.5 hover:border-sage-200 hover:shadow-lift;
   }
 
   .input {
-    @apply w-full rounded-xl border border-slate-800 bg-slate-950 px-3 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400;
+    @apply w-full rounded-xl border border-stone-200 bg-surface px-3 py-2.5 text-sm text-stone-800 placeholder:text-stone-400 outline-none focus:border-sage-500 focus:ring-1 focus:ring-sage-500;
   }
 
   .label {
-    @apply mb-1.5 block text-sm font-medium text-slate-300;
+    @apply mb-1.5 block text-sm font-medium text-stone-600;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-400 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-sage-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sage-700 disabled:cursor-not-allowed disabled:opacity-60;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-950 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-slate-700 hover:bg-slate-900;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-stone-200 bg-surface px-4 py-2.5 text-sm font-medium text-stone-700 transition hover:border-stone-300 hover:bg-stone-50;
   }
 
   .btn-danger {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-red-500/15 px-4 py-2.5 text-sm font-medium text-red-300 transition hover:bg-red-500/25;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-critical-tint px-4 py-2.5 text-sm font-medium text-critical transition hover:bg-critical-tint;
+  }
+
+  .muted {
+    @apply text-stone-500;
+  }
+
+  .accent {
+    @apply text-sage-700;
+  }
+
+  .icon-soft {
+    @apply flex items-center justify-center rounded-xl bg-sage-100 text-sage-700;
+  }
+
+  .status-normal {
+    @apply rounded-full bg-normal-tint px-2.5 py-1 text-xs font-medium text-normal;
+  }
+
+  .status-borderline {
+    @apply rounded-full bg-borderline-tint px-2.5 py-1 text-xs font-medium text-borderline;
+  }
+
+  .status-critical {
+    @apply rounded-full bg-critical-tint px-2.5 py-1 text-xs font-medium text-critical;
+  }
+
+  .status-info {
+    @apply rounded-full bg-info-tint px-2.5 py-1 text-xs font-medium text-info;
   }
 }
