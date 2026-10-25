@@ -7,10 +7,22 @@ services:
     dockerfilePath: ./Dockerfile
     healthCheckPath: /api/health
     envVars:
-      - key: DB_URL
-        value: jdbc:postgresql://${{medivault-db.host}}:${{medivault-db.port}}/${{medivault-db.database}}?sslmode=require
+      - key: SPRING_PROFILES_ACTIVE
+        value: render
       - key: DB_DRIVER
         value: org.postgresql.Driver
+      - key: DB_HOST
+        fromDatabase:
+          name: medivault-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: medivault-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: medivault-db
+          property: database
       - key: DB_USERNAME
         fromDatabase:
           name: medivault-db

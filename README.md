@@ -112,7 +112,7 @@ The patient sets or changes a separate doctor access password from the **Doctor 
 ### Backend on Render (Docker)
 
 1. In Render, create a **Blueprint** from this GitHub repository. Render reads `render.yaml` and configures a free Docker web service and free PostgreSQL database.
-2. The Blueprint generates a JWT secret and references the PostgreSQL connection values automatically.
+2. The Blueprint generates a JWT secret and references the PostgreSQL connection values automatically. The Render profile builds the JDBC connection from those values.
 3. Confirm `CORS_ORIGINS` matches the deployed Vercel frontend URL. The included Blueprint starts with `https://frontend-bice-nine-72.vercel.app`.
 4. Render injects `PORT`; `application.yml` already reads it. The health check path is `/api/health`.
 
