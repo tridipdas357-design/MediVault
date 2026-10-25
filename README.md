@@ -119,7 +119,7 @@ jdbc:mysql://HOST:PORT/DATABASE?useSSL=true&serverTimezone=UTC
 
 ### Backend on Render (Docker)
 
-1. In Render, create a **Blueprint** from this GitHub repository. Render reads `render.yaml` and configures the Docker service from the `backend` directory.
+1. In Render, create a **Blueprint** from this GitHub repository. Render reads `render.yaml` and configures the Docker service from the `backend` directory on the Free plan.
 2. Enter the prompted `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`, and a strong `JWT_SECRET` (at least 32 characters) as private environment values. Do not commit these values.
 3. Confirm `CORS_ORIGINS` matches the deployed Vercel frontend URL. The included Blueprint starts with `https://frontend-bice-nine-72.vercel.app`.
 4. Render injects `PORT`; `application.yml` already reads it. The health check path is `/api/health`.

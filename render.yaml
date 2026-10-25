@@ -2,6 +2,7 @@ services:
   - type: web
     name: medivault-api
     runtime: docker
+    plan: free
     rootDir: backend
     dockerfilePath: ./Dockerfile
     healthCheckPath: /api/health
