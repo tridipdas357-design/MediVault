@@ -109,22 +109,14 @@ The patient sets or changes a separate doctor access password from the **Doctor 
 
 ## Deploy
 
-### MySQL (Railway or another managed provider)
-
-Create a MySQL instance and copy its connection details. If the database is hosted outside Render, enable public TCP access for the database and use the provider's public host and port. Keep its credentials private. JDBC URL shape:
-
-```
-jdbc:mysql://HOST:PORT/DATABASE?useSSL=true&serverTimezone=UTC
-```
-
 ### Backend on Render (Docker)
 
-1. In Render, create a **Blueprint** from this GitHub repository. Render reads `render.yaml` and configures the Docker service from the `backend` directory on the Free plan.
-2. Enter the prompted `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`, and a strong `JWT_SECRET` (at least 32 characters) as private environment values. Do not commit these values.
+1. In Render, create a **Blueprint** from this GitHub repository. Render reads `render.yaml` and configures a free Docker web service and free PostgreSQL database.
+2. The Blueprint generates a JWT secret and references the PostgreSQL connection values automatically.
 3. Confirm `CORS_ORIGINS` matches the deployed Vercel frontend URL. The included Blueprint starts with `https://frontend-bice-nine-72.vercel.app`.
 4. Render injects `PORT`; `application.yml` already reads it. The health check path is `/api/health`.
 
-Note: the container filesystem is ephemeral. Uploaded medical scans will not be durable across redeploys unless you configure persistent storage or object storage. Do not store real patient data until you have reviewed the provider's privacy, security, and regulatory requirements and configured durable storage. `ddl-auto=update` creates tables on first boot.
+The Blueprint uses Render PostgreSQL rather than MySQL. Render's free PostgreSQL expires after 30 days; free web services also spin down when idle and have ephemeral filesystems. This is for testing only, not durable storage. Uploaded scans are lost when the service restarts or spins down. Do not store real patient data on this free setup. `ddl-auto=update` creates tables on first boot.
 
 ### Frontend on Vercel
 

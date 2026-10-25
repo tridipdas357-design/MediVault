@@ -8,12 +8,25 @@ services:
     healthCheckPath: /api/health
     envVars:
       - key: DB_URL
-        sync: false
+        value: jdbc:postgresql://${{medivault-db.host}}:${{medivault-db.port}}/${{medivault-db.database}}?sslmode=require
+      - key: DB_DRIVER
+        value: org.postgresql.Driver
       - key: DB_USERNAME
-        sync: false
+        fromDatabase:
+          name: medivault-db
+          property: user
       - key: DB_PASSWORD
-        sync: false
+        fromDatabase:
+          name: medivault-db
+          property: password
       - key: JWT_SECRET
-        sync: false
+        generateValue: true
       - key: CORS_ORIGINS
         value: https://frontend-bice-nine-72.vercel.app
+
+databases:
+  - name: medivault-db
+    databaseName: medivault
+    user: medivault
+    plan: free
+    postgresMajorVersion: "16"
